@@ -1,0 +1,15 @@
+.element {
+  width: 282px;
+  height: 361px;
+  background-color: #fff;
+  border-radius: 10px;
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-template-rows: max-content 25px max-content 1fr;
+  grid-template-areas:
+    "image image"
+    ". ."
+    "title like"
+    ". .";
+  align-items: center;
+}

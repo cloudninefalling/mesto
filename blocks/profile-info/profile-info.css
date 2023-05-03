@@ -1,0 +1,9 @@
+.profile-info {
+  display: grid;
+  grid-template-columns: max-content max-content;
+  grid-template-rows: max-content max-content;
+  grid-template-areas:
+    "name edit-button"
+    "occupation .";
+  margin-left: 30px;
+}
