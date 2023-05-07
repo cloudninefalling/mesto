@@ -1,4 +1,9 @@
 .element__like {
   grid-area: like;
-  margin-right: 20px;
+  margin: 0 20px 0 30px;
+  transition: opacity 0.3s ease;
+}
+
+.element__like:hover {
+  opacity: 0.6;
 }

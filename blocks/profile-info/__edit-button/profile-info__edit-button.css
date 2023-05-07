@@ -1,5 +1,9 @@
 .profile-info__edit-button {
   grid-area: edit-button;
   align-self: center;
-  margin-left: 18px;
+  transition: opacity 0.3s ease;
+}
+
+.profile-info__edit-button:hover {
+  opacity: 0.6;
 }

@@ -1,3 +1,5 @@
 .element__image {
   overflow: hidden;
+  max-width: 100%;
+  grid-area: image;
 }

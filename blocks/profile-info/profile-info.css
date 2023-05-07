@@ -1,9 +1,19 @@
 .profile-info {
   display: grid;
-  grid-template-columns: max-content max-content;
-  grid-template-rows: max-content max-content;
+  grid-template-columns: max-content 18px min-content;
+  grid-template-rows: max-content 16px max-content;
   grid-template-areas:
-    "name edit-button"
-    "occupation .";
+    "name . edit-button"
+    ". . ."
+    "occupation . .";
   margin-left: 30px;
+  grid-area: profile-info;
+}
+
+@media screen and (max-width: 880px) {
+  .profile-info {
+    grid-template-columns: max-content 10px min-content;
+    grid-template-rows: max-content 14px max-content;
+    justify-items: center;
+  }
 }

@@ -3,7 +3,9 @@
   margin: 51px 0 0;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fit, 282px);
+  grid-template-columns: repeat(auto-fit, minmax(282px, 1fr));
   row-gap: 20px;
   column-gap: 17px;
+  width: 100%;
+  justify-items: center;
 }
