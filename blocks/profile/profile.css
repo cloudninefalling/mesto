@@ -1,5 +1,5 @@
 .profile {
-  margin-top: 40px;
+  margin: 40px 0 51px;
   display: grid;
   grid-template-columns: max-content auto auto;
   grid-template-areas: "avatar profile-info add-button";
@@ -19,5 +19,7 @@
       "."
       "add-button";
     justify-items: center;
+    margin-bottom: 36px;
+    max-width: 282px;
   }
 }

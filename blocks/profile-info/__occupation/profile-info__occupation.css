@@ -5,4 +5,16 @@
   line-height: 1.22;
   grid-area: occupation;
   margin: 0;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 260px;
+}
+
+@media screen and (max-width: 880px) {
+  .profile-info__occupation {
+    font-size: 14px;
+    line-height: 1.21;
+  }
 }

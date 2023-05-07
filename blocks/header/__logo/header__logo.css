@@ -1,17 +1,19 @@
 .header__logo {
-  max-width: 142px;
-  max-height: 33px;
-  margin-top: 45px;
+  width: 142px;
+  margin: 45px 0 41px;
 }
 
 @media screen and (max-width: 1000px) {
   .header__logo {
     margin-left: calc(27px - 27 * (100vw - 880px) / (1000 - 880));
+    width: calc(104px + 38 * (100vw - 880px) / (1000 - 880));
   }
 }
 
 @media screen and (max-width: 880px) {
   .header__logo {
-    margin-left: 27px;
+    margin: 28px 0 31px 27px;
+    width: 104px;
+
   }
 }

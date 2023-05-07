@@ -1,8 +1,7 @@
 /* page */
 @import url(../vendor/normalize.css);
-@import url(../vendor/fonts.css);
+@import url(../vendor/fonts/fonts.css);
 @import url(../blocks/page/page.css);
-@import url(../blocks/content/content.css);
 
 /* header */
 @import url(../blocks/header/header.css);
@@ -10,6 +9,7 @@
 @import url(../blocks/header/__line/header__line.css);
 
 /* profile */
+@import url(../blocks/content/content.css);
 @import url(../blocks/profile/profile.css);
 @import url(../blocks/profile/__avatar/profile__avatar.css);
 @import url(../blocks/profile-info/profile-info.css);
