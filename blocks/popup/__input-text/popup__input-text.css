@@ -1,0 +1,26 @@
+.popup__input-text {
+  width: 358px;
+  grid-area: name;
+  font-family: inherit;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.21;
+  border: none;
+  border-bottom: 1px solid #bcbcc4;
+  height: 27px;
+}
+
+.popup__input-text:last-of-type {
+  grid-area: occupation;
+}
+
+.popup__input-text:focus {
+  outline: none;
+}
+
+@media screen and (max-width: 660px) {
+  .popup__input-text {
+    width: 238px;
+  }
+}
