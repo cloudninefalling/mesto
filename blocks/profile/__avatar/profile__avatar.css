@@ -2,4 +2,6 @@
   width: 120px;
   height: 120px;
   grid-area: avatar;
+  object-fit: cover;
+  border-radius: 50%;
 }

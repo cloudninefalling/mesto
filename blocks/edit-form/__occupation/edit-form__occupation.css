@@ -1,0 +1,10 @@
+.edit-form__occupation {
+
+  margin-bottom: 48px;
+}
+
+@media screen and (max-width: 660px) {
+  .edit-form__occupation {
+    width: 238px;
+  }
+}

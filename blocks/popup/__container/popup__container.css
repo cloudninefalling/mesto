@@ -5,23 +5,14 @@
   width: 430px;
   background-color: #fff;
   border-radius: 10px;
-  display: grid;
-  grid-template-columns: 100%;
-  grid-template-rows: min-content 45px max-content 25px max-content 48px max-content;
-  grid-template-areas:
-    "title"
-    "."
-    "name"
-    "."
-    "occupation"
-    "."
-    "submit";
+  display: flex;
   justify-items: center;
+  box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
 }
 
 @media screen and (max-width: 660px) {
   .popup__container {
     width: 282px;
-    grid-template-rows: min-content 75px max-content 25px max-content 45px max-content;
   }
 }

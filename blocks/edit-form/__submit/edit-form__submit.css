@@ -1,9 +1,9 @@
-.popup__submit {
+.edit-form__submit {
   width: 358px;
   height: 50px;
   background-color: #000;
   border: none;
-  border-radius: 5px;
+  border-radius: 2px;
   color: #fff;
   font-weight: 400;
   font-size: 18px;
@@ -11,22 +11,20 @@
   text-align: center;
   transition: opacity 0.3s ease;
   cursor: pointer;
-  grid-area: submit;
   margin-bottom: 37px;
 }
 
-.popup__submit:hover {
+.edit-form__submit:hover {
   opacity: 0.8;
 }
 
 @media screen and (max-width: 660px) {
-  .popup__submit {
+  .edit-form__submit {
     font-weight: 400;
     font-size: 14px;
     line-height: 1.21;
     width: 238px;
     height: 46px;
-    border-radius: 2px;
     margin-bottom: 25px;
   }
 }

@@ -1,22 +1,26 @@
-.popup__name {
+.edit-form__text {
   width: 358px;
-  grid-area: name;
   font-family: inherit;
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
   line-height: 1.21;
   border: none;
-  border-bottom: 1px solid #bcbcc4;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   height: 27px;
+  margin-bottom: 25px;
 }
 
-.popup__name:focus {
+.edit-form__text:last-of-type {
+  margin-bottom: 48px;
+}
+
+.edit-form__text:focus {
   outline: none;
 }
 
 @media screen and (max-width: 660px) {
-  .popup__name {
+  .edit-form__text {
     width: 238px;
   }
 }
