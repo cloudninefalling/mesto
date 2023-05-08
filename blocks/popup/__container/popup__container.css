@@ -3,12 +3,11 @@
   margin: auto;
   opacity: 1;
   width: 430px;
-  height: 330px;
   background-color: #fff;
   border-radius: 10px;
   display: grid;
   grid-template-columns: 100%;
-  grid-template-rows: min-content 47px max-content 30px max-content 48px max-content;
+  grid-template-rows: min-content 45px max-content 25px max-content 48px max-content;
   grid-template-areas:
     "title"
     "."
@@ -23,6 +22,6 @@
 @media screen and (max-width: 660px) {
   .popup__container {
     width: 282px;
-    height: 322px;
+    grid-template-rows: min-content 75px max-content 25px max-content 45px max-content;
   }
 }

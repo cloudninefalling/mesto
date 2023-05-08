@@ -1,4 +1,4 @@
-.popup__input-text {
+.popup__name {
   width: 358px;
   grid-area: name;
   font-family: inherit;
@@ -11,16 +11,12 @@
   height: 27px;
 }
 
-.popup__input-text:last-of-type {
-  grid-area: occupation;
-}
-
-.popup__input-text:focus {
+.popup__name:focus {
   outline: none;
 }
 
 @media screen and (max-width: 660px) {
-  .popup__input-text {
+  .popup__name {
     width: 238px;
   }
 }

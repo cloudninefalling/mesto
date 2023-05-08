@@ -12,6 +12,7 @@
   transition: opacity 0.3s ease;
   cursor: pointer;
   grid-area: submit;
+  margin-bottom: 37px;
 }
 
 .popup__submit:hover {
@@ -24,5 +25,8 @@
     font-size: 14px;
     line-height: 1.21;
     width: 238px;
+    height: 46px;
+    border-radius: 2px;
+    margin-bottom: 25px;
   }
 }

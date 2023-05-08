@@ -7,13 +7,13 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
-  max-width: 290px;
+  max-width: 400px;
 }
 
 @media screen and (max-width: 880px) {
   .profile-info__name {
     font-size: 27px;
     line-height: 1.22;
-    max-width: 190px;
+    max-width: 75vw;
   }
 }
