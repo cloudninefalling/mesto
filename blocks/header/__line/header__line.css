@@ -1,4 +1,6 @@
 .header__line {
-  stroke: #545454;
-  stroke-width: 1.5;
+  width: 880px;
+  height: 1px;
+  background-image: url(../../../images/Line.svg);
+  background-size: cover;
 }
