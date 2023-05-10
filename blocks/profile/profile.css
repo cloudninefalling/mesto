@@ -20,6 +20,6 @@
       "add-button";
     justify-items: center;
     margin-bottom: 36px;
-    max-width: 90%;
+    width: minmax(max-content, 100vw);
   }
 }

@@ -19,7 +19,7 @@
 @media screen and (max-width: 880px) {
   .profile__add-button {
     justify-self: center;
-    background-image: url(../../../images/add-button__wide.png);
+    background-image: url(../../../images/add-button__wide.svg);
     width: 282px;
   }
 }
