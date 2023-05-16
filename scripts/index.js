@@ -1,30 +1,24 @@
 //    --- constants ---
 
 //query selector for page elements
-let page = document.querySelector('.page');
+const page = document.querySelector('.page');
 
 //query selector for card elements
-let elements = document.querySelector('.elements');
+const elements = document.querySelector('.elements');
 
 //query selectors for profile elements
-let profile = page.querySelector('.profile');
-let profileInfo = profile.querySelector('.profile-info');
-let userName = profileInfo.querySelector('.profile-info__name');
-let userOccupation = profileInfo.querySelector('.profile-info__occupation');
-let editButton = profileInfo.querySelector('.profile-info__edit-button');
+const profile = page.querySelector('.profile');
+const addButton = profile.querySelector('.profile__add-button')
+const profileInfo = profile.querySelector('.profile-info');
+const userName = profileInfo.querySelector('.profile-info__name');
+const userOccupation = profileInfo.querySelector('.profile-info__occupation');
+const editButton = profileInfo.querySelector('.profile-info__edit-button');
 
 //query selectors for popup elements
-let popup = page.querySelector('.popup');
-let closeButton = popup.querySelector('.popup__close');
-let popupContainer = popup.querySelector('.popup__container');
-
-//query selectors for edit-form elements
-let editForm = popupContainer.querySelector('.edit-form');
-let inputName = editForm.querySelector('.edit-form__text_input_name');
-let inputOccupation = editForm.querySelector('.edit-form__text_input_occupation');
-
-//query selectors for add-form elements TODO:
-
+const popup = page.querySelector('.popup');
+const closeButton = popup.querySelector('.popup__close');
+const popupContainer = popup.querySelector('.popup__container');
+const editForm = popupContainer.querySelector('.edit-form');
 
 //initial cards
 const initialCards = [
@@ -56,18 +50,47 @@ const initialCards = [
 
 
 
+//    --- variables ---
+
+let inputName;
+let inputOccupation;
+
+let inputImageName;
+let inputImageLink;
+
+
+
 //    --- functions ---
 
-//open popup, set input values
-function openPopup() {
-  popup.classList.add('popup_opened');
+//open edit-profile popup
+function openEditProfile() {
+  //open popup
+  popup.classList.add('popup_opened')
+
+  //set form elements
+  editForm.setAttribute('name', 'edit-profile');
+  const title = editForm.querySelector('.edit-form__title');
+  const inputText = editForm.querySelectorAll('.edit-form__text');
+  inputName = inputText[0];
+  inputOccupation = inputText[1];
+
+  //add classes to input elements, set attributes
+  inputName.classList.add('edit-form__text_input_profile-name');
+  inputName.setAttribute('placeholder', 'Имя');
+  inputName.setAttribute('name', 'input-name');
+  inputName.setAttribute('required', true);
+
+  inputOccupation.classList.add('edit-form__text_input_profile-occupation');
+  inputOccupation.setAttribute('placeholder', 'О себе');
+  inputOccupation.setAttribute('name', 'input-occupation');
+
+  //set input values
+  title.innerText = 'Редактировать профиль';
   inputName.value = userName.textContent;
   inputOccupation.value = userOccupation.textContent;
-}
 
-//close popup
-function closePopup() {
-  popup.classList.remove('popup_opened');
+  //add submit event listener
+  editForm.addEventListener('submit', submitEditForm);
 }
 
 //close popup, update profile info
@@ -78,10 +101,67 @@ function submitEditForm(evt) {
   closePopup();
 }
 
+//open add-image popup
+function openAddImage() {
+  //open popup
+  popup.classList.add('popup_opened');
+
+  //set form elements
+  editForm.setAttribute('name', 'add-image');
+  const title = editForm.querySelector('.edit-form__title');
+  const inputText = editForm.querySelectorAll('.edit-form__text');
+  inputImageName = inputText[0];
+  inputImageLink = inputText[1];
+
+  //add classes to input elements, set attributes
+  inputImageName.classList.add('edit-form__text_input_image-name');
+  inputImageName.setAttribute('placeholder', 'Название');
+  inputImageName.setAttribute('name', 'input-image-name');
+  inputImageName.setAttribute('required', true);
+
+  inputImageLink.classList.add('edit-form__text_input_image-link');
+  inputImageLink.setAttribute('placeholder', 'Ссылка на картинку');
+  inputImageLink.setAttribute('name', 'input-image-link');
+  inputImageLink.setAttribute('required', true);
+
+  //set input values
+  title.innerText = 'Новое место';
+
+  //add submit event listener
+  editForm.addEventListener('submit', submitAddForm);
+}
+
 //close popup, add image
 function submitAddForm(evt) {
   evt.preventDefault();
-  createElement(inputName.value, inputLink.value);
+  createElement(inputImageName.value, inputImageLink.value);
+  closePopup();
+}
+
+//close popup
+function closePopup() {
+  if (editForm.name === 'edit-profile') {
+    inputName.value = ''; //clear inputName value and class
+    inputName.classList.remove('edit-form__text_input_profile-name');
+
+    inputOccupation.value = ''; //clear inputOccupation value and class
+    inputOccupation.classList.remove('edit-form__text_input_profile-occupation');
+
+    editForm.removeAttribute('name', 'edit-profile'); //remove attribute name from form element
+    editForm.removeEventListener('submit', submitEditForm); //remove event listener from form element
+
+  } else if (editForm.name === 'add-image') {
+    inputImageName.value = ''; //clear inputImageName value and class
+    inputImageName.classList.remove('edit-form__text_input_image-name');
+
+    inputImageLink.value = ''; //clear inputImageLink value and class 
+    inputImageLink.classList.remove('edit-form__text_input_image-link');
+
+    editForm.removeAttribute('name', 'add-image'); //remove attribute name from form element
+    editForm.removeEventListener('submit', submitAddForm); //remove event listener from form element
+
+  }
+  popup.classList.remove('popup_opened');
 }
 
 //create card
@@ -115,6 +195,6 @@ initialCards.forEach(element => createElement(element.name, element.link));
 
 //    --- event listeners ---
 
-editButton.addEventListener('click', openPopup);
+editButton.addEventListener('click', openEditProfile);
 closeButton.addEventListener('click', closePopup);
-editForm.addEventListener('submit', submitEditForm);
+addButton.addEventListener('click', openAddImage);
