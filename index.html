@@ -35,12 +35,6 @@
 
   <div class="popup">
     <div class="popup__container">
-      <form class="edit-form">
-        <h2 class="edit-form__title"></h2>
-        <input class="edit-form__text" type="text"> 
-        <input class="edit-form__text" type="text">
-        <button class="edit-form__submit" type="submit" aria-label="сохранить">Сохранить</button>
-      </form>
       <button class="popup__close" type="button" aria-label="закрыть"></button>
     </div>
   </div>
@@ -52,6 +46,20 @@
       <button type="button" class="element__like" aria-label="лайк"></button>
       <button type="button" class="element__delete" aria-label="удалить"></button>
     </li>
+  </template>
+  <template id="popup-image-template">
+
+  </template>
+
+  <template id="edit-form-template">
+    <form class="edit-form">
+      <h2 class="edit-form__title"></h2>
+      <input class="edit-form__text" type="text"> 
+      <input class="edit-form__text" type="text">
+      <button class="edit-form__submit" type="submit" aria-label="применить"></button>
+    </form>
+  </template>
+
   </template>
   <script src="./scripts/index.js"></script>
 </body>
