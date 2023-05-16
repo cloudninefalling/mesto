@@ -8,9 +8,11 @@
   <title>Mesto</title>
 </head>
 <body class="page">
+
   <header class="header">
     <img class="header__logo" src="./images/logo.svg" alt="логотип Место">
   </header>
+
   <main class="content">
     <section class="profile">
       <img class="profile__avatar" src="./images/avatar.png" alt="аватар">
@@ -21,44 +23,16 @@
       </div>
       <button class="profile__add-button" type="button" aria-label="новый пост"></button>
     </section>
+
     <section class="cards">
-      <ul class="elements">
-        <li class="element">
-          <img src="./images/element__image-1.jpg" alt="Древний монастырь в лесу" class="element__image">
-          <h2 class="element__title">Карачаевск</h2>
-          <button type="button" class="element__like" aria-label="лайк"></button>
-        </li>
-        <li class="element">
-          <img src="./images/element__image-2.jpg" alt="Древний монастырь в лесу" class="element__image">
-          <h2 class="element__title">Гора Эльбрус</h2>
-          <button type="button" class="element__like" aria-label="лайк"></button>
-        </li>
-        <li class="element">
-          <img src="./images/element__image-3.jpg" alt="Древний монастырь в лесу" class="element__image">
-          <h2 class="element__title">Домбай</h2>
-          <button type="button" class="element__like" aria-label="лайк"></button>
-        </li>
-        <li class="element">
-          <img src="./images/element__image-4.jpg" alt="Древний монастырь в лесу" class="element__image">
-          <h2 class="element__title">Ватикан</h2>
-          <button type="button" class="element__like" aria-label="лайк"></button>
-        </li>
-        <li class="element">
-          <img src="./images/element__image-5.jpg" alt="Древний монастырь в лесу" class="element__image">
-          <h2 class="element__title">Санкт-Петербург</h2>
-          <button type="button" class="element__like" aria-label="лайк"></button>
-        </li>
-        <li class="element">
-          <img src="./images/element__image-6.jpg" alt="Древний монастырь в лесу" class="element__image">
-          <h2 class="element__title">Сеул</h2>
-          <button type="button" class="element__like" aria-label="лайк"></button>
-        </li>
-      </ul>
+      <ul class="elements"></ul>
     </section>
   </main>
+
   <footer class="footer">
     <p class="footer__copyright">© 2020 Mesto Russia</p>
   </footer>
+
   <div class="popup">
     <div class="popup__container">
       <form class="edit-form" name="profile-edit">
@@ -70,6 +44,15 @@
       <button class="popup__close" type="button" aria-label="закрыть"></button>
     </div>
   </div>
+
+  <template id="element-template">
+    <li class="element">
+      <img class="element__image">
+      <h2 class="element__title"></h2>
+      <button type="button" class="element__like" aria-label="лайк"></button>
+      <button type="button" class="element__delete" aria-label="удалить"></button>
+    </li>
+  </template>
   <script src="./scripts/index.js"></script>
 </body>
 </html>
