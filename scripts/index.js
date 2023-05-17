@@ -161,8 +161,6 @@ function openAddImage() {
 //add image and close popup
 function submitAddForm(evt) {
   evt.preventDefault();
-
-  //TODO: check if link is an image
   createElement(inputImageName.value, inputImageLink.value);
   closePopup();
 }
