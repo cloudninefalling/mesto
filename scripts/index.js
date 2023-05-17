@@ -108,7 +108,8 @@ function openEditProfile() {
   //add submit event listener
   editForm.addEventListener('submit', submitEditForm);
 
-  popupContainer.appendChild(editForm); //append form to popup container
+  //append form to popup container
+  popupContainer.appendChild(editForm);
 }
 
 //update profile info and close popup 
