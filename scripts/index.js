@@ -65,10 +65,14 @@ let formName;
 
 //open popup
 function openPopup() {
-  popup.classList.add('popup_opened');
   while (popupContainer.children.length > 1) {
     popupContainer.removeChild(popupContainer.lastChild);
   }
+  if (popup.classList.contains('popup_dark')) {
+    popup.classList.remove('popup_dark');
+  }
+  popup.classList.add('popup_opened');
+
 }
 
 
@@ -98,10 +102,9 @@ function openEditProfile() {
   inputOccupation.setAttribute('placeholder', 'О себе');
   inputOccupation.setAttribute('name', 'input-occupation');
 
-  //set input values
+  //set form element values
   title.innerText = 'Редактировать профиль';
   submitButton.innerText = 'Сохранить';
-
   inputName.value = userName.textContent;
   inputOccupation.value = userOccupation.textContent;
 
@@ -110,6 +113,9 @@ function openEditProfile() {
 
   //append form to popup container
   popupContainer.appendChild(editForm);
+
+  //focus on input
+  inputName.focus();
 }
 
 //update profile info and close popup 
@@ -146,16 +152,17 @@ function openAddImage() {
   inputImageLink.setAttribute('name', 'input-image-link');
   inputImageLink.setAttribute('required', true);
 
-  //set input values
+  //set form element values
   title.innerText = 'Новое место';
   submitButton.innerText = 'Создать';
-  inputImageName.value = '';
-  inputImageLink.value = '';
 
   //add submit event listener
   editForm.addEventListener('submit', submitAddForm);
 
   popupContainer.appendChild(editForm); //append form to popup container
+
+  //focus on input
+  inputImageName.focus();
 }
 
 //add image and close popup
@@ -165,7 +172,7 @@ function submitAddForm(evt) {
   closePopup();
 }
 
-//open card popup
+//open image popup
 function openImage(evt) {
   openPopup();
   popup.classList.add('popup_dark');
