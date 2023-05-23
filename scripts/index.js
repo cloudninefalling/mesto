@@ -33,8 +33,8 @@ const inputImageName = addForm.querySelector('.edit-form__text_input_image-name'
 const inputImageLink = addForm.querySelector('.edit-form__text_input_image-link');
 
 //query selectors for image popup
-const image = popupImage.querySelector('.popup-image');
-const imageTitle = popupImage.querySelector('.popup-image__title');
+const image = popupImage.querySelector('.popup__image');
+const imageTitle = popupImage.querySelector('.popup__title');
 
 
 

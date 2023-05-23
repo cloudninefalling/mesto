@@ -46,5 +46,5 @@
 @import url(../blocks/edit-form/__submit/edit-form__submit.css);
 
 /* image-popup */
-@import url(../blocks/popup-image/popup-image.css);
-@import url(../blocks/popup-image/__title/popup-image__title.css);
+@import url(../blocks/popup/__image/popup__image.css);
+@import url(../blocks/popup/__title/popup__title.css);
