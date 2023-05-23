@@ -66,9 +66,9 @@ const initialCards = [
 //    --- functions ---
 
 //open popup TODO: merge here
-function openPopup(formName) {
-  switch (formName) { //TODO: open necessary popups
-    case 'edit-form':
+function openPopup(evt) {
+  switch (evt.target.classList[0]) { //TODO: open necessary popups
+    case 'profile-info__edit-button':
       //open popup
       popupEdit.classList.add('popup_opened');
       //set input values
@@ -79,7 +79,7 @@ function openPopup(formName) {
       //focus on input
       inputName.focus();
       break;
-    case 'add-image':
+    case 'profile__add-button':
       //open popup
       popupAddImage.classList.add('popup_opened');
       //add submit event listener
@@ -90,13 +90,13 @@ function openPopup(formName) {
       //focus on input
       inputImageName.focus();
       break;
-    case 'image':
+    case 'element__image':
       //open popup
       popupImage.classList.add('popup_opened');
-      image.src = this.src;
-      image.alt = this.alt;
-      imageTitle.innerText = this.alt;
-
+      image.src = evt.target.src;
+      image.alt = evt.target.alt;
+      imageTitle.innerText = evt.target.alt;
+      break;
   }
 }
 
@@ -146,7 +146,7 @@ function createElement(name, link) {
   elementImage.alt = name;
 
   //assign event listeners
-  elementImage.addEventListener('click', openPopup.bind(null, 'image')); //add event listener to image
+  elementImage.addEventListener('click', openPopup); //add event listener to image
   elementLike.addEventListener('click', likeElement); //add event listener to like button
   elementDelete.addEventListener('click', deleteElement); //add event listener to delete button
 
@@ -170,8 +170,8 @@ initialCards.forEach(element => elements.append(createElement(element.name, elem
 
 //    --- event listeners ---
 
-editButton.addEventListener('click', openPopup.bind(null, 'edit-form'));
-addButton.addEventListener('click', openPopup.bind(null, 'add-image'));
+editButton.addEventListener('click', openPopup);
+addButton.addEventListener('click', openPopup);
 //close buttons
 popupEdit.querySelector('.popup__close').addEventListener('click', closePopup.bind(null, 'edit-form'));
 popupAddImage.querySelector('.popup__close').addEventListener('click', closePopup.bind(null, 'add-image'));
