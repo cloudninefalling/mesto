@@ -3,6 +3,9 @@
 //query selector for page elements
 const page = document.querySelector('.page');
 
+//query selector for template element
+const elememtTemplate = document.querySelector('#element-template').content;
+
 //query selector for card elements
 const elements = document.querySelector('.elements');
 
@@ -33,34 +36,6 @@ const inputImageLink = addForm.querySelector('.edit-form__text_input_image-link'
 const image = popupImage.querySelector('.popup-image');
 const imageTitle = popupImage.querySelector('.popup-image__title');
 
-//initial cards TODO: move to different file constants.js
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
-
 
 
 //    --- functions ---
@@ -72,7 +47,7 @@ function openPopup(evt) {
     case 'profile-info__edit-button':
       //open popup
       popupEdit.classList.add('popup_opened');
-      //set input values
+      //set input values to current profile info
       inputName.value = userName.textContent;
       inputOccupation.value = userOccupation.textContent;
       //add submit event listener
@@ -125,9 +100,8 @@ function closePopup(evt) {
 
 //create card
 function createElement(name, link) {
-  //assign elements
-  const elememtTemplate = document.querySelector('#element-template').content; //assign template element
-  const newElement = elememtTemplate.querySelector('.element').cloneNode(true); //assign clone of card element
+  //assign clone of card element in template
+  const newElement = elememtTemplate.querySelector('.element').cloneNode(true);
 
   //assign element fields
   const elementTitle = newElement.querySelector('.element__title');
