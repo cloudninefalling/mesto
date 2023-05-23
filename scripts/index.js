@@ -65,9 +65,10 @@ const initialCards = [
 
 //    --- functions ---
 
-//open popup TODO: merge here
+//open popup
 function openPopup(evt) {
-  switch (evt.target.classList[0]) { //TODO: open necessary popups
+  targetClass = evt.target.classList[0];
+  switch (targetClass) {
     case 'profile-info__edit-button':
       //open popup
       popupEdit.classList.add('popup_opened');
@@ -105,7 +106,7 @@ function submitEditForm(evt) {
   evt.preventDefault();
   userName.textContent = inputName.value;
   userOccupation.textContent = inputOccupation.value;
-  closePopup('edit-form');
+  closePopup(evt);
 }
 
 //add image and close popup
@@ -113,19 +114,13 @@ function submitAddForm(evt) {
   evt.preventDefault();
   const card = createElement(inputImageName.value, inputImageLink.value)
   elements.prepend(card);
-  closePopup('add-image');
+  closePopup(evt);
 }
 
 //close popup
-function closePopup(formName) {
-  switch (formName) {
-    case 'edit-form':
-      popupEdit.classList.remove('popup_opened');
-    case 'add-image':
-      popupAddImage.classList.remove('popup_opened');
-    case 'image':
-      popupImage.classList.remove('popup_opened');
-  }
+function closePopup(evt) {
+  const popup = evt.target.closest('.popup');
+  popup.classList.remove('popup_opened');
 }
 
 //create card
@@ -173,6 +168,6 @@ initialCards.forEach(element => elements.append(createElement(element.name, elem
 editButton.addEventListener('click', openPopup);
 addButton.addEventListener('click', openPopup);
 //close buttons
-popupEdit.querySelector('.popup__close').addEventListener('click', closePopup.bind(null, 'edit-form'));
-popupAddImage.querySelector('.popup__close').addEventListener('click', closePopup.bind(null, 'add-image'));
-popupImage.querySelector('.popup__close').addEventListener('click', closePopup.bind(null, 'image'));
+popupEdit.querySelector('.popup__close').addEventListener('click', closePopup);
+popupAddImage.querySelector('.popup__close').addEventListener('click', closePopup);
+popupImage.querySelector('.popup__close').addEventListener('click', closePopup);

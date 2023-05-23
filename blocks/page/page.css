@@ -6,6 +6,7 @@
   margin: 0;
   color: #fff;
   min-width: 320px;
+  min-height: 100vh;
 
   font-family: 'Inter', sans-serif;
   -moz-osx-font-smoothing: grayscale;
