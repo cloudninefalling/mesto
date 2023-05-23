@@ -1,6 +1,6 @@
 .element {
   position: relative;
-  min-width: 282px;
+  width: 282px;
   background-color: #fff;
   border-radius: 10px;
   display: grid;
@@ -13,10 +13,4 @@
     ". .";
   align-items: center;
   overflow: hidden;
-}
-
-@media screen and (max-width: 363px) {
-  .element {
-    max-width: calc(282px + 38 * (100vw - 320px) / (363 - 320));
-  }
 }

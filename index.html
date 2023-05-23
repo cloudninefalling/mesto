@@ -34,9 +34,35 @@
     <p class="footer__copyright">© 2020 Mesto Russia</p>
   </footer>
 
-  <div class="popup">
+  <div class="popup popup_edit-profile">
     <div class="popup__container">
+      <form class="edit-form" name="edit-profile">
+      <h2 class="edit-form__title">Редактировать профиль</h2>
+      <input class="edit-form__text edit-form__text_input_profile-name" type="text" placeholder="Имя" name="input-name" required> 
+      <input class="edit-form__text edit-form__text_input_profile-occupation" type="text" placeholder="О себе" name="input-occupation">
+      <button class="edit-form__submit" type="submit" aria-label="сохранить">Сохранить</button>
+    </form>
     <button class="popup__close" type="button" aria-label="закрыть"></button>
+    </div>
+  </div>
+
+  <div class="popup popup_add-card">
+    <div class="popup__container">
+      <form class="edit-form" name="add-image">
+        <h2 class="edit-form__title">Новое место</h2>
+        <input class="edit-form__text edit-form__text_input_image-name" type="text" placeholder="Название" name="input-image-name" required> 
+        <input class="edit-form__text edit-form__text_input_image-link" type="text" placeholder="Ссылка на картинку" name="input-image-link" required>
+        <button class="edit-form__submit" type="submit" aria-label="создать">Создать</button>
+      </form>
+      <button class="popup__close" type="button" aria-label="закрыть"></button>
+    </div>
+  </div>
+
+  <div class="popup popup_image">
+    <div class="popup_container">
+      <img class="popup-image">
+      <h2 class="popup-image__title"></h2>
+      <button class="popup__close" type="button" aria-label="закрыть"></button>
     </div>
   </div>
 
@@ -49,19 +75,6 @@
     </li>
   </template>
   
-  <template id="popup-image-template">
-    <img class="popup-image">
-    <h2 class="popup-image__title"></h2>
-  </template>
-
-  <template id="edit-form-template">
-    <form class="edit-form">
-      <h2 class="edit-form__title"></h2>
-      <input class="edit-form__text" type="text"> 
-      <input class="edit-form__text" type="text">
-      <button class="edit-form__submit" type="submit" aria-label="применить"></button>
-    </form>
-  </template>
   <script src="./scripts/index.js"></script>
 </body>
 </html>
