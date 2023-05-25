@@ -11,34 +11,32 @@ const elements = page.querySelector('.elements');
 
 //query selectors for profile elements
 const profile = page.querySelector('.profile');
-const addButton = profile.querySelector('.profile__add-button')
+const buttonOpenAddCardPopup = profile.querySelector('.profile__add-button')
 const profileInfo = profile.querySelector('.profile-info');
 const userName = profileInfo.querySelector('.profile-info__name');
 const userOccupation = profileInfo.querySelector('.profile-info__occupation');
-const editButton = profileInfo.querySelector('.profile-info__edit-button');
+const buttonOpenEditProfilePopup = profileInfo.querySelector('.profile-info__edit-button');
 
 //query selectors for popup elements
-const popupEdit = page.querySelector('.popup_edit-profile');
-const popupAddImage = page.querySelector('.popup_add-card');
+const popupEditProfile = page.querySelector('.popup_edit-profile');
+const popupAddCard = page.querySelector('.popup_add-card');
 const popupImage = page.querySelector('.popup_image');
 
 const closeButtons = page.querySelectorAll('.popup__close');
 
-//query selectors for editForm
-const editForm = popupEdit.querySelector('.edit-form');
-const inputName = editForm.querySelector('.edit-form__text_input_profile-name');
-const inputOccupation = editForm.querySelector('.edit-form__text_input_profile-occupation');
+//query selectors for formEditProfile
+const formEditProfile = popupEditProfile.querySelector('.edit-form');
+const inputName = formEditProfile.querySelector('.edit-form__text_input_profile-name');
+const inputOccupation = formEditProfile.querySelector('.edit-form__text_input_profile-occupation');
 
-//query selectors for addForm
-const addForm = popupAddImage.querySelector('.edit-form');
-const inputImageName = addForm.querySelector('.edit-form__text_input_image-name');
-const inputImageLink = addForm.querySelector('.edit-form__text_input_image-link');
+//query selectors for formAddCard
+const formAddCard = popupAddCard.querySelector('.edit-form');
+const inputImageName = formAddCard.querySelector('.edit-form__text_input_image-name');
+const inputImageLink = formAddCard.querySelector('.edit-form__text_input_image-link');
 
 //query selectors for image popup
 const image = popupImage.querySelector('.popup__image');
 const imageTitle = popupImage.querySelector('.popup__title');
-
-
 
 //    --- functions ---
 
@@ -46,40 +44,35 @@ function openPopup(popup) {
   popup.classList.add('popup_opened');
 }
 
-function setupEditForm() {
+function setupFormEditProfile() {
   //set input values to current profile info
   inputName.value = userName.textContent;
   inputOccupation.value = userOccupation.textContent;
-  //add submit event listener
-  editForm.addEventListener('submit', submitEditForm);
   //focus on input
   inputName.focus();
 }
 
 //submit edit-form: update profile info and close popup 
-function submitEditForm(evt) {
+function submitFormEditProfile(evt) {
   evt.preventDefault();
   userName.textContent = inputName.value;
   userOccupation.textContent = inputOccupation.value;
-  closePopup(evt.target.closest('.popup'));
+  closePopup(popupEditProfile);
 }
 
-function setupAddImage() {
-  //add submit event listener
-  addForm.addEventListener('submit', submitAddForm);
-  //clear input values
-  inputImageName.value = '';
-  inputImageLink.value = '';
+function setupFormAddCard() {
+  //reset form
+  formAddCard.reset();
   //focus on input
   inputImageName.focus();
 }
 
 //add image and close popup
-function submitAddForm(evt) {
+function submitFormAddCard(evt) {
   evt.preventDefault();
   const card = createElement(inputImageName.value, inputImageLink.value)
   elements.prepend(card);
-  closePopup(evt.target.closest('.popup'));
+  closePopup(popupAddCard);
 }
 
 function setupImagePopup(evt) {
@@ -133,17 +126,18 @@ function deleteElement(evt) {
 //create initial cards
 initialCards.forEach(element => elements.append(createElement(element.name, element.link)));
 
-
-
 //    --- event listeners ---
 
-editButton.addEventListener('click', function () {
-  openPopup(popupEdit);
-  setupEditForm();
+formEditProfile.addEventListener('submit', submitFormEditProfile);
+buttonOpenEditProfilePopup.addEventListener('click', function () {
+  openPopup(popupEditProfile);
+  setupFormEditProfile();
 });
-addButton.addEventListener('click', function () {
-  openPopup(popupAddImage);
-  setupAddImage();
+
+formAddCard.addEventListener('submit', submitFormAddCard);
+buttonOpenAddCardPopup.addEventListener('click', function () {
+  openPopup(popupAddCard);
+  setupFormAddCard();
 });
 
 //add event listeners for close buttons
