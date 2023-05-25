@@ -4,10 +4,10 @@
 const page = document.querySelector('.page');
 
 //query selector for template element
-const elememtTemplate = document.querySelector('#element-template').content;
+const elememtTemplate = page.querySelector('#element-template').content;
 
 //query selector for card elements
-const elements = document.querySelector('.elements');
+const elements = page.querySelector('.elements');
 
 //query selectors for profile elements
 const profile = page.querySelector('.profile');
@@ -17,10 +17,12 @@ const userName = profileInfo.querySelector('.profile-info__name');
 const userOccupation = profileInfo.querySelector('.profile-info__occupation');
 const editButton = profileInfo.querySelector('.profile-info__edit-button');
 
-//query selectors for popup types
+//query selectors for popup elements
 const popupEdit = page.querySelector('.popup_edit-profile');
 const popupAddImage = page.querySelector('.popup_add-card');
 const popupImage = page.querySelector('.popup_image');
+
+const closeButtons = page.querySelectorAll('.popup__close');
 
 //query selectors for editForm
 const editForm = popupEdit.querySelector('.edit-form');
@@ -40,48 +42,36 @@ const imageTitle = popupImage.querySelector('.popup__title');
 
 //    --- functions ---
 
-//open popup
-function openPopup(evt) {
-  targetClass = evt.target.classList[0];
-  switch (targetClass) {
-    case 'profile-info__edit-button':
-      //open popup
-      popupEdit.classList.add('popup_opened');
-      //set input values to current profile info
-      inputName.value = userName.textContent;
-      inputOccupation.value = userOccupation.textContent;
-      //add submit event listener
-      editForm.addEventListener('submit', submitEditForm);
-      //focus on input
-      inputName.focus();
-      break;
-    case 'profile__add-button':
-      //open popup
-      popupAddImage.classList.add('popup_opened');
-      //add submit event listener
-      addForm.addEventListener('submit', submitAddForm);
-      //clear input values
-      inputImageName.value = '';
-      inputImageLink.value = '';
-      //focus on input
-      inputImageName.focus();
-      break;
-    case 'element__image':
-      //open popup
-      popupImage.classList.add('popup_opened');
-      image.src = evt.target.src;
-      image.alt = evt.target.alt;
-      imageTitle.innerText = evt.target.alt;
-      break;
-  }
+function openPopup(popup) {
+  popup.classList.add('popup_opened');
 }
 
-//update profile info and close popup 
+function setupEditForm() {
+  //set input values to current profile info
+  inputName.value = userName.textContent;
+  inputOccupation.value = userOccupation.textContent;
+  //add submit event listener
+  editForm.addEventListener('submit', submitEditForm);
+  //focus on input
+  inputName.focus();
+}
+
+//submit edit-form: update profile info and close popup 
 function submitEditForm(evt) {
   evt.preventDefault();
   userName.textContent = inputName.value;
   userOccupation.textContent = inputOccupation.value;
-  closePopup(evt);
+  closePopup(evt.target.closest('.popup'));
+}
+
+function setupAddImage() {
+  //add submit event listener
+  addForm.addEventListener('submit', submitAddForm);
+  //clear input values
+  inputImageName.value = '';
+  inputImageLink.value = '';
+  //focus on input
+  inputImageName.focus();
 }
 
 //add image and close popup
@@ -89,12 +79,17 @@ function submitAddForm(evt) {
   evt.preventDefault();
   const card = createElement(inputImageName.value, inputImageLink.value)
   elements.prepend(card);
-  closePopup(evt);
+  closePopup(evt.target.closest('.popup'));
+}
+
+function setupImagePopup(evt) {
+  image.src = evt.target.src;
+  image.alt = evt.target.alt;
+  imageTitle.innerText = evt.target.alt;
 }
 
 //close popup
-function closePopup(evt) {
-  const popup = evt.target.closest('.popup');
+function closePopup(popup) {
   popup.classList.remove('popup_opened');
 }
 
@@ -115,7 +110,10 @@ function createElement(name, link) {
   elementImage.alt = name;
 
   //assign event listeners
-  elementImage.addEventListener('click', openPopup); //add event listener to image
+  elementImage.addEventListener('click', function (evt) {
+    openPopup(popupImage);
+    setupImagePopup(evt);
+  }); //add event listener to image
   elementLike.addEventListener('click', likeElement); //add event listener to like button
   elementDelete.addEventListener('click', deleteElement); //add event listener to delete button
 
@@ -139,9 +137,16 @@ initialCards.forEach(element => elements.append(createElement(element.name, elem
 
 //    --- event listeners ---
 
-editButton.addEventListener('click', openPopup);
-addButton.addEventListener('click', openPopup);
-//close buttons
-popupEdit.querySelector('.popup__close').addEventListener('click', closePopup);
-popupAddImage.querySelector('.popup__close').addEventListener('click', closePopup);
-popupImage.querySelector('.popup__close').addEventListener('click', closePopup);
+editButton.addEventListener('click', function () {
+  openPopup(popupEdit);
+  setupEditForm();
+});
+addButton.addEventListener('click', function () {
+  openPopup(popupAddImage);
+  setupAddImage();
+});
+
+//add event listeners for close buttons
+closeButtons.forEach(button => button.addEventListener('click', function (evt) {
+  closePopup(evt.target.closest('.popup'));
+}));
