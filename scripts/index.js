@@ -7,7 +7,7 @@ const page = document.querySelector('.page');
 const elememtTemplate = page.querySelector('#element-template').content;
 
 //query selector for card elements
-const elements = page.querySelector('.elements');
+const cardsContainer = page.querySelector('.elements');
 
 //query selectors for profile elements
 const profile = page.querySelector('.profile');
@@ -30,6 +30,14 @@ const inputName = formEditProfile.querySelector('.edit-form__text_input_profile-
 const inputOccupation = formEditProfile.querySelector('.edit-form__text_input_profile-occupation');
 const btnSubmitEditProfile = formEditProfile.querySelector('.edit-form__submit');
 const inputListEditProfile = Array.from(formEditProfile.querySelectorAll('.edit-form__text'));
+const configEditProfile = {
+  formID: '#edit-profile',
+  inputSelector: '.edit-form__text',
+  submitButtonSelector: '.edit-form__submit',
+  inactiveSubmitButtonClass: 'edit-form__submit_disabled',
+  errorMessageSelector: 'edit-form__input-error-msg',
+  errorStyleClass: 'edit-form__text_error'
+};
 
 //query selectors for formAddCard elements
 const formAddCard = popupAddCard.querySelector('.edit-form');
@@ -37,6 +45,14 @@ const inputImageName = formAddCard.querySelector('.edit-form__text_input_image-n
 const inputImageLink = formAddCard.querySelector('.edit-form__text_input_image-link');
 const btnSubmitAddCard = formAddCard.querySelector('.edit-form__submit');
 const inputListAddCard = Array.from(formAddCard.querySelectorAll('.edit-form__text'));
+const configAddCard = {
+  formID: '#add-card',
+  inputSelector: '.edit-form__text',
+  submitButtonSelector: '.edit-form__submit',
+  inactiveSubmitButtonClass: 'edit-form__submit_disabled',
+  errorMessageSelector: 'edit-form__input-error-msg',
+  errorStyleClass: 'edit-form__text_error'
+};
 
 //query selectors for image popup elements
 const image = popupImage.querySelector('.popup__image');
@@ -49,6 +65,8 @@ function openPopup(popup) {
 
   //add event listener to close popup on 'esc'
   document.addEventListener('keydown', closePopupOnEsc);
+  //add event listener to close popup on click on overlay
+  document.addEventListener('mousedown', closePopupOnClick);
 }
 
 function setupFormEditProfile() {
@@ -57,11 +75,8 @@ function setupFormEditProfile() {
   inputOccupation.value = userOccupation.textContent;
   //focus on input
   inputName.focus();
-  toggleButtonState(inputListEditProfile, btnSubmitEditProfile);
-  //clear errors
-  inputListEditProfile.forEach(input => {
-    hideInputError(formEditProfile, input);
-  });
+  //reset errors
+  resetErrors(formEditProfile, configEditProfile);
 }
 
 //submit edit-form: update profile info and close popup 
@@ -77,25 +92,22 @@ function setupFormAddCard() {
   formAddCard.reset();
   //focus on input
   inputImageName.focus();
-  toggleButtonState(inputListAddCard, btnSubmitAddCard);
-  //clear errors
-  inputListAddCard.forEach(input => {
-    hideInputError(formAddCard, input);
-  });
+  //reset errors
+  resetErrors(formAddCard, configAddCard);
 }
 
 //add image and close popup
 function submitFormAddCard(evt) {
   evt.preventDefault();
   const card = createElement(inputImageName.value, inputImageLink.value)
-  elements.prepend(card);
+  cardsContainer.prepend(card);
   closePopup(popupAddCard);
 }
 
-function setupImagePopup(evtTarget) {
-  image.src = evtTarget.src;
-  image.alt = evtTarget.alt;
-  imageTitle.innerText = evtTarget.alt;
+function setupImagePopup(title, link) {
+  image.src = link;
+  image.alt = title;
+  imageTitle.innerText = title;
 }
 
 //close popup on 'esc'
@@ -106,14 +118,23 @@ const closePopupOnEsc = evt => {
   }
 }
 
+//close popup by clicking on overlay
+const closePopupOnClick = evt => {
+  const evtTarget = evt.target;
+  if (evtTarget.classList.contains('popup')) {
+    closePopup(evtTarget);
+  }
+}
+
 //close popup
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
   document.removeEventListener('keydown', closePopupOnEsc);
+  document.removeEventListener('mousedown', closePopupOnClick);
 }
 
 //create card
-function createElement(name, link) {
+function createElement(title, link) {
   //assign clone of card element in template
   const newElement = elememtTemplate.querySelector('.element').cloneNode(true);
 
@@ -124,9 +145,24 @@ function createElement(name, link) {
   const elementDelete = newElement.querySelector('.element__delete');
 
   //set element field values
-  elementTitle.innerText = name;
+  elementTitle.innerText = title;
   elementImage.src = link;
-  elementImage.alt = name;
+  elementImage.alt = title;
+
+  //set event listeners for element
+  newElement.addEventListener('mousedown', evt => {
+    const evtTarget = evt.target;
+    const evtTargetClassList = evtTarget.classList;
+
+    if (evtTargetClassList.contains('element__like')) {
+      likeElement(evtTarget);
+    } else if (evtTargetClassList.contains('element__delete')) {
+      deleteElement(evtTarget)
+    } else if (evtTargetClassList.contains('element__image')) {
+      openPopup(popupImage);
+      setupImagePopup(title, link);
+    };
+  });
 
   return newElement;
 }
@@ -142,10 +178,12 @@ function deleteElement(evtTarget) {
 }
 
 // --- initial setup ---
-enableValidation();
+enableValidation(configEditProfile);
+
+enableValidation(configAddCard);
 
 //render initial cards
-initialCards.forEach(element => elements.append(createElement(element.name, element.link)));
+initialCards.forEach(card => cardsContainer.append(createElement(card.name, card.link)));
 
 //add submit listeners for forms
 formEditProfile.addEventListener('submit', submitFormEditProfile);
@@ -166,21 +204,3 @@ buttonOpenAddCardPopup.addEventListener('click', () => {
 closeButtons.forEach(button => button.addEventListener('click', evt => {
   closePopup(evt.target.closest('.popup'));
 }));
-
-
-//add click listener to document
-document.addEventListener('click', evt => {
-  const evtTarget = evt.target;
-  const evtTargetClassList = evtTarget.classList;
-
-  if (evtTargetClassList.contains('popup')) {
-    closePopup(evtTarget);
-  } else if (evtTargetClassList.contains('element__like')) {
-    likeElement(evtTarget);
-  } else if (evtTargetClassList.contains('element__delete')) {
-    deleteElement(evtTarget)
-  } else if (evtTargetClassList.contains('element__image')) {
-    openPopup(popupImage);
-    setupImagePopup(evtTarget);
-  }
-});
