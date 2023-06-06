@@ -24,17 +24,21 @@ const popupImage = page.querySelector('.popup_image');
 
 const closeButtons = page.querySelectorAll('.popup__close');
 
-//query selectors for formEditProfile
+//query selectors for formEditProfile elements
 const formEditProfile = popupEditProfile.querySelector('.edit-form');
 const inputName = formEditProfile.querySelector('.edit-form__text_input_profile-name');
 const inputOccupation = formEditProfile.querySelector('.edit-form__text_input_profile-occupation');
+const btnSubmitEditProfile = formEditProfile.querySelector('.edit-form__submit');
+const inputListEditProfile = Array.from(formEditProfile.querySelectorAll('.edit-form__text'));
 
-//query selectors for formAddCard
+//query selectors for formAddCard elements
 const formAddCard = popupAddCard.querySelector('.edit-form');
 const inputImageName = formAddCard.querySelector('.edit-form__text_input_image-name');
 const inputImageLink = formAddCard.querySelector('.edit-form__text_input_image-link');
+const btnSubmitAddCard = formAddCard.querySelector('.edit-form__submit');
+const inputListAddCard = Array.from(formAddCard.querySelectorAll('.edit-form__text'));
 
-//query selectors for image popup
+//query selectors for image popup elements
 const image = popupImage.querySelector('.popup__image');
 const imageTitle = popupImage.querySelector('.popup__title');
 
@@ -42,6 +46,9 @@ const imageTitle = popupImage.querySelector('.popup__title');
 
 function openPopup(popup) {
   popup.classList.add('popup_opened');
+
+  //add event listener to close popup on 'esc'
+  document.addEventListener('keydown', closePopupOnEsc);
 }
 
 function setupFormEditProfile() {
@@ -50,6 +57,11 @@ function setupFormEditProfile() {
   inputOccupation.value = userOccupation.textContent;
   //focus on input
   inputName.focus();
+  toggleButtonState(inputListEditProfile, btnSubmitEditProfile);
+  //clear errors
+  inputListEditProfile.forEach(input => {
+    hideInputError(formEditProfile, input);
+  });
 }
 
 //submit edit-form: update profile info and close popup 
@@ -65,6 +77,11 @@ function setupFormAddCard() {
   formAddCard.reset();
   //focus on input
   inputImageName.focus();
+  toggleButtonState(inputListAddCard, btnSubmitAddCard);
+  //clear errors
+  inputListAddCard.forEach(input => {
+    hideInputError(formAddCard, input);
+  });
 }
 
 //add image and close popup
@@ -81,9 +98,18 @@ function setupImagePopup(evt) {
   imageTitle.innerText = evt.target.alt;
 }
 
+//close popup on 'esc'
+const closePopupOnEsc = evt => {
+  if (evt.key === 'Escape') {
+    const openedPopup = page.querySelector('.popup_opened');
+    closePopup(openedPopup);
+  }
+}
+
 //close popup
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
+  document.removeEventListener('keydown', closePopupOnEsc);
 }
 
 //create card
@@ -106,28 +132,28 @@ function createElement(name, link) {
   elementImage.addEventListener('click', function (evt) {
     openPopup(popupImage);
     setupImagePopup(evt);
-  }); //add event listener to image
-  elementLike.addEventListener('click', likeElement); //add event listener to like button
-  elementDelete.addEventListener('click', deleteElement); //add event listener to delete button
+  });
 
   return newElement;
 }
 
 //like card
-function likeElement(evt) {
-  evt.target.classList.toggle('element__like_active');
+function likeElement(evtTarget) {
+  evtTarget.classList.toggle('element__like_active');
 }
 
 //delete card
-function deleteElement(evt) {
-  evt.target.closest('.element').remove();
+function deleteElement(evtTarget) {
+  evtTarget.closest('.element').remove();
 }
 
-//create initial cards
+// --- initial setup ---
+enableValidation();
+
+//render initial cards
 initialCards.forEach(element => elements.append(createElement(element.name, element.link)));
 
-//    --- event listeners ---
-
+//add event listeners for forms
 formEditProfile.addEventListener('submit', submitFormEditProfile);
 buttonOpenEditProfilePopup.addEventListener('click', function () {
   openPopup(popupEditProfile);
@@ -144,3 +170,17 @@ buttonOpenAddCardPopup.addEventListener('click', function () {
 closeButtons.forEach(button => button.addEventListener('click', function (evt) {
   closePopup(evt.target.closest('.popup'));
 }));
+
+
+//add click listener to document
+document.addEventListener('click', evt => {
+  const evtTarget = evt.target;
+
+  if (evtTarget.classList.contains('popup')) {
+    closePopup(evtTarget);
+  } else if (evtTarget.classList.contains('element__like')) {
+    likeElement(evtTarget);
+  } else if (evtTarget.classList.contains('element__delete')) {
+    deleteElement(evtTarget)
+  }
+});

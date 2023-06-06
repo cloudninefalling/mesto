@@ -8,11 +8,7 @@
   border: none;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   height: 27px;
-  margin-bottom: 25px;
-}
-
-.edit-form__text:last-of-type {
-  margin-bottom: 48px;
+  padding: 0;
 }
 
 .edit-form__text:focus {

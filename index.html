@@ -36,10 +36,12 @@
   
   <div class="popup popup_edit-profile">
     <div class="popup__container">
-      <form class="edit-form" name="edit-profile">
+      <form class="edit-form" name="edit-profile" novalidate>
       <h2 class="edit-form__title">Редактировать профиль</h2>
-      <input class="edit-form__text edit-form__text_input_profile-name" type="text" placeholder="Имя" name="input-name" required> 
-      <input class="edit-form__text edit-form__text_input_profile-occupation" type="text" placeholder="О себе" name="input-occupation">
+      <input class="edit-form__text edit-form__text_input_profile-name" type="text" placeholder="Имя" name="input-name" required minlength="2" maxlength="40"> 
+      <span class="edit-form__input-error-msg" id="input-name-error"></span>
+      <input class="edit-form__text edit-form__text_input_profile-occupation" type="text" placeholder="О себе" name="input-occupation" minlength="2" maxlength="200">
+      <span class="edit-form__input-error-msg" id="input-occupation-error"></span>
       <button class="edit-form__submit" type="submit" aria-label="сохранить">Сохранить</button>
     </form>
     <button class="popup__close" type="button" aria-label="закрыть"></button>
@@ -48,10 +50,12 @@
 
   <div class="popup popup_add-card">
     <div class="popup__container">
-      <form class="edit-form" name="add-image">
+      <form class="edit-form" name="add-image" novalidate>
         <h2 class="edit-form__title">Новое место</h2>
-        <input class="edit-form__text edit-form__text_input_image-name" type="text" placeholder="Название" name="input-image-name" required> 
-        <input class="edit-form__text edit-form__text_input_image-link" type="text" placeholder="Ссылка на картинку" name="input-image-link" required>
+        <input class="edit-form__text edit-form__text_input_image-name" type="text" placeholder="Название" name="input-image-name" required minlength="2" maxlength="30"> 
+        <span class="edit-form__input-error-msg" id="input-image-name-error"></span>
+        <input class="edit-form__text edit-form__text_input_image-link" type="url" placeholder="Ссылка на картинку" name="input-image-link" required>
+        <span class="edit-form__input-error-msg" id="input-image-link-error"></span>
         <button class="edit-form__submit" type="submit" aria-label="создать">Создать</button>
       </form>
       <button class="popup__close" type="button" aria-label="закрыть"></button>
@@ -75,6 +79,7 @@
     </li>
   </template>
   
+  <script src="./scripts/validate.js"></script>
   <script src="./scripts/constants.js"></script>
   <script src="./scripts/index.js"></script>
 </body>
