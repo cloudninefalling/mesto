@@ -1,28 +1,38 @@
 //show input error for specific input inside form
-function showInputError(formElement, inputElement, validationMessage) {
-  errorElement = formElement.querySelector(`#${inputElement.name}-error`);
+function showInputError(formElement, inputElement, validationMessage, errorStyleClass) {
+  const errorElement = formElement.querySelector(`#${inputElement.name}-error`);
 
-  inputElement.classList.add('edit-form__text_error');
+  inputElement.classList.add(errorStyleClass);
   errorElement.textContent = validationMessage;
 }
 
 //hide input error for specific input inside form
-function hideInputError(formElement, inputElement) {
-  errorElement = formElement.querySelector(`#${inputElement.name}-error`);
+function hideInputError(formElement, inputElement, errorStyleClass) {
+  const errorElement = formElement.querySelector(`#${inputElement.name}-error`);
 
-  inputElement.classList.remove('edit-form__text_error');
+  inputElement.classList.remove(errorStyleClass);
   errorElement.textContent = '';
 }
 
 
 //validate inputs
-function isValid(formElement, inputElement) {
+function isValid(formElement, inputElement, errorStyleClass) {
   if (!inputElement.validity.valid) {
-    showInputError(formElement, inputElement, inputElement.validationMessage);
+    showInputError(formElement, inputElement, inputElement.validationMessage, errorStyleClass);
   }
   else {
-    hideInputError(formElement, inputElement);
+    hideInputError(formElement, inputElement, errorStyleClass);
   }
+}
+
+function resetErrors(formElement, config) {
+  const inputList = Array.from(formElement.querySelectorAll(config.inputSelector));
+  const submitButtonElement = formElement.querySelector(config.submitButtonSelector);
+
+  inputList.forEach(inputElement => {
+    hideInputError(formElement, inputElement, config.errorStyleClass);
+  });
+  toggleButtonState(inputList, submitButtonElement, config.inactiveSubmitButtonClass);
 }
 
 //check for invalid inputs
@@ -33,32 +43,33 @@ function hasInvalidInput(inputList) {
 }
 
 //toggle button state
-function toggleButtonState(inputList, buttonElement) {
+function toggleButtonState(inputList, buttonElement, inactiveSubmitButtonClass) {
   if (hasInvalidInput(inputList)) {
-    buttonElement.classList.add('edit-form__submit_disabled');
+    buttonElement.classList.add(inactiveSubmitButtonClass);
     buttonElement.setAttribute('disabled', true);
   } else {
-    buttonElement.classList.remove('edit-form__submit_disabled');
+    buttonElement.classList.remove(inactiveSubmitButtonClass);
     buttonElement.removeAttribute('disabled');
   }
 }
 //set event listeners for form
-function setFormEventListeners(formElement) {
-  const buttonElement = formElement.querySelector('.edit-form__submit');
-  const inputList = Array.from(formElement.querySelectorAll('.edit-form__text'))
+function setFormEventListeners(formElement, config) {
+  const submitButtonElement = formElement.querySelector(config.submitButtonSelector);
+  const inputList = Array.from(formElement.querySelectorAll(config.inputSelector));
+  const errorStyleClass = config.errorStyleClass;
+  const inactiveSubmitButtonClass = config.inactiveSubmitButtonClass;
+
   inputList.forEach(inputElement => {
     inputElement.addEventListener('input', () => {
-      isValid(formElement, inputElement);
-      toggleButtonState(inputList, buttonElement);
+      isValid(formElement, inputElement, errorStyleClass);
+      toggleButtonState(inputList, submitButtonElement, inactiveSubmitButtonClass);
     });
   });
 }
 
-//enable validation for all forms on page
-function enableValidation() {
-  formsList = Array.from(document.forms);
+//enable validation for forms
+function enableValidation(config) {
+  const formElement = document.querySelector(config.formID);
 
-  formsList.forEach(formElement => {
-    setFormEventListeners(formElement);
-  });
+  setFormEventListeners(formElement, config);
 }
