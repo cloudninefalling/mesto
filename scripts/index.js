@@ -147,21 +147,23 @@ enableValidation();
 //render initial cards
 initialCards.forEach(element => elements.append(createElement(element.name, element.link)));
 
-//add event listeners for forms
+//add submit listeners for forms
 formEditProfile.addEventListener('submit', submitFormEditProfile);
-buttonOpenEditProfilePopup.addEventListener('click', function () {
+formAddCard.addEventListener('submit', submitFormAddCard);
+
+//add click listeners for open-popup-buttons
+buttonOpenEditProfilePopup.addEventListener('click', () => {
   openPopup(popupEditProfile);
   setupFormEditProfile();
 });
 
-formAddCard.addEventListener('submit', submitFormAddCard);
-buttonOpenAddCardPopup.addEventListener('click', function () {
+buttonOpenAddCardPopup.addEventListener('click', () => {
   openPopup(popupAddCard);
   setupFormAddCard();
 });
 
-//add event listeners for close buttons
-closeButtons.forEach(button => button.addEventListener('click', function (evt) {
+//add event listeners for close-popup-buttons
+closeButtons.forEach(button => button.addEventListener('click', evt => {
   closePopup(evt.target.closest('.popup'));
 }));
 
@@ -169,14 +171,15 @@ closeButtons.forEach(button => button.addEventListener('click', function (evt) {
 //add click listener to document
 document.addEventListener('click', evt => {
   const evtTarget = evt.target;
+  const evtTargetClassList = evtTarget.classList;
 
-  if (evtTarget.classList.contains('popup')) {
+  if (evtTargetClassList.contains('popup')) {
     closePopup(evtTarget);
-  } else if (evtTarget.classList.contains('element__like')) {
+  } else if (evtTargetClassList.contains('element__like')) {
     likeElement(evtTarget);
-  } else if (evtTarget.classList.contains('element__delete')) {
+  } else if (evtTargetClassList.contains('element__delete')) {
     deleteElement(evtTarget)
-  } else if (evtTarget.classList.contains('element__image')) {
+  } else if (evtTargetClassList.contains('element__image')) {
     openPopup(popupImage);
     setupImagePopup(evtTarget);
   }
