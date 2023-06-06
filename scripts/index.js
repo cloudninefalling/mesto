@@ -92,10 +92,10 @@ function submitFormAddCard(evt) {
   closePopup(popupAddCard);
 }
 
-function setupImagePopup(evt) {
-  image.src = evt.target.src;
-  image.alt = evt.target.alt;
-  imageTitle.innerText = evt.target.alt;
+function setupImagePopup(evtTarget) {
+  image.src = evtTarget.src;
+  image.alt = evtTarget.alt;
+  imageTitle.innerText = evtTarget.alt;
 }
 
 //close popup on 'esc'
@@ -127,12 +127,6 @@ function createElement(name, link) {
   elementTitle.innerText = name;
   elementImage.src = link;
   elementImage.alt = name;
-
-  //assign event listeners
-  elementImage.addEventListener('click', function (evt) {
-    openPopup(popupImage);
-    setupImagePopup(evt);
-  });
 
   return newElement;
 }
@@ -182,5 +176,8 @@ document.addEventListener('click', evt => {
     likeElement(evtTarget);
   } else if (evtTarget.classList.contains('element__delete')) {
     deleteElement(evtTarget)
+  } else if (evtTarget.classList.contains('element__image')) {
+    openPopup(popupImage);
+    setupImagePopup(evtTarget);
   }
 });
