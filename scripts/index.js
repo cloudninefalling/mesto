@@ -30,14 +30,6 @@ const inputName = formEditProfile.querySelector('.edit-form__text_input_profile-
 const inputOccupation = formEditProfile.querySelector('.edit-form__text_input_profile-occupation');
 const btnSubmitEditProfile = formEditProfile.querySelector('.edit-form__submit');
 const inputListEditProfile = Array.from(formEditProfile.querySelectorAll('.edit-form__text'));
-const configEditProfile = {
-  formID: '#edit-profile',
-  inputSelector: '.edit-form__text',
-  submitButtonSelector: '.edit-form__submit',
-  inactiveSubmitButtonClass: 'edit-form__submit_disabled',
-  errorMessageSelector: 'edit-form__input-error-msg',
-  errorStyleClass: 'edit-form__text_error'
-};
 
 //query selectors for formAddCard elements
 const formAddCard = popupAddCard.querySelector('.edit-form');
@@ -45,18 +37,20 @@ const inputImageName = formAddCard.querySelector('.edit-form__text_input_image-n
 const inputImageLink = formAddCard.querySelector('.edit-form__text_input_image-link');
 const btnSubmitAddCard = formAddCard.querySelector('.edit-form__submit');
 const inputListAddCard = Array.from(formAddCard.querySelectorAll('.edit-form__text'));
-const configAddCard = {
-  formID: '#add-card',
+
+//query selectors for image popup elements
+const image = popupImage.querySelector('.popup__image');
+const imageTitle = popupImage.querySelector('.popup__title');
+
+//validation config
+const config = {
+  formSelector: '.edit-form',
   inputSelector: '.edit-form__text',
   submitButtonSelector: '.edit-form__submit',
   inactiveSubmitButtonClass: 'edit-form__submit_disabled',
   errorMessageSelector: 'edit-form__input-error-msg',
   errorStyleClass: 'edit-form__text_error'
 };
-
-//query selectors for image popup elements
-const image = popupImage.querySelector('.popup__image');
-const imageTitle = popupImage.querySelector('.popup__title');
 
 //    --- functions ---
 
@@ -76,7 +70,7 @@ function setupFormEditProfile() {
   //focus on input
   inputName.focus();
   //reset errors
-  resetErrors(formEditProfile, configEditProfile);
+  resetErrors(formEditProfile, config);
 }
 
 //submit edit-form: update profile info and close popup 
@@ -93,7 +87,7 @@ function setupFormAddCard() {
   //focus on input
   inputImageName.focus();
   //reset errors
-  resetErrors(formAddCard, configAddCard);
+  resetErrors(formAddCard, config);
 }
 
 //add image and close popup
@@ -150,7 +144,7 @@ function createElement(title, link) {
   elementImage.alt = title;
 
   //set event listeners for element
-  newElement.addEventListener('mousedown', evt => {
+  newElement.addEventListener('click', evt => {
     const evtTarget = evt.target;
     const evtTargetClassList = evtTarget.classList;
 
@@ -178,9 +172,7 @@ function deleteElement(evtTarget) {
 }
 
 // --- initial setup ---
-enableValidation(configEditProfile);
-
-enableValidation(configAddCard);
+enableValidation(config);
 
 //render initial cards
 initialCards.forEach(card => cardsContainer.append(createElement(card.name, card.link)));

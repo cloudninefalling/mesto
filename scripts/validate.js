@@ -69,7 +69,8 @@ function setFormEventListeners(formElement, config) {
 
 //enable validation for forms
 function enableValidation(config) {
-  const formElement = document.querySelector(config.formID);
-
-  setFormEventListeners(formElement, config);
+  const formElements = Array.from(document.querySelectorAll(config.formSelector));
+  formElements.forEach(formElement => {
+    setFormEventListeners(formElement, config);
+  });
 }
