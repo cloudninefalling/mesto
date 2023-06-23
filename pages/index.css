@@ -47,7 +47,6 @@
 @import url(../blocks/edit-form/__submit/_disabled/edit-form__submit_disabled.css);
 @import url(../blocks/edit-form/__text/_error/edit-form__text_error.css);
 @import url(../blocks/edit-form/__input-error-msg/edit-form__input-error-msg.css);
-@import url(../blocks/edit-form/__input-error-msg/_active/edit-form__input-error-msg_active.css);
 
 /* image-popup */
 @import url(../blocks/popup/__image/popup__image.css);
