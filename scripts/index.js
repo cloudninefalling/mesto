@@ -1,33 +1,9 @@
 import { Card } from "./Card.js";
 import { FormValidator } from "./FormValidator.js";
+import { initialCards } from "./constants.js";
 
 //    --- constants ---
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
+
 
 //query selector for page elements
 const page = document.querySelector('.page');
@@ -118,8 +94,7 @@ function submitFormAddCard(evt) {
     name: inputImageName.value,
     link: inputImageLink.value
   }
-  const card = new Card(data, cardTemplateSelector, openPopup);
-  const cardElement = card.generateCard();
+  const cardElement = createCard(data);
   cardsContainer.prepend(cardElement);
   closePopup(popupAddCard);
 }
@@ -147,10 +122,15 @@ function closePopup(popup) {
 
 function renderInitialCards() {
   initialCards.forEach(data => {
-    const card = new Card(data, cardTemplateSelector, openPopup);
-    const cardElement = card.generateCard();
+    const cardElement = createCard(data);
     cardsContainer.append(cardElement);
   })
+}
+
+function createCard(data) {
+  const card = new Card(data, cardTemplateSelector, openPopup);
+  const cardElement = card.generateCard();
+  return cardElement;
 }
 
 // --- initial setup ---
