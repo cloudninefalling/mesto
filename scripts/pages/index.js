@@ -90,5 +90,6 @@ buttonOpenEditProfilePopup.addEventListener('click', () => {
 
 buttonOpenAddCardPopup.addEventListener('click', () => {
   popupAddCardForm.open();
+  popupAddCardForm.setInputValues();
   formAddCardValidator.resetErrors();
 });

@@ -15,7 +15,13 @@ export class PopupWithForm extends Popup {
     return inputValues;
   }
 
-  setInputValues(values) {
+  setInputValues(values = null) {
+    if (!values) {
+      this._inputs.forEach(input => {
+        input.value = '';
+      });
+      return;
+    }
     for (let i = 0; i < this._inputs.length; i++) {
       this._inputs[i].value = values[i];
     }
