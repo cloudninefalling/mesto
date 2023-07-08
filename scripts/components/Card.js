@@ -1,7 +1,3 @@
-const popupImage = document.querySelector('.popup_image');
-const image = popupImage.querySelector('.popup__image');
-const imageTitle = popupImage.querySelector('.popup__title');
-
 export class Card {
   constructor(data, template, openPopup) {
     this._title = data.name;
@@ -26,13 +22,7 @@ export class Card {
     evtTarget.closest('.element').remove();
   }
 
-  _setupImagePopup(title, link) {
-    image.src = link;
-    image.alt = title;
-    imageTitle.innerText = title;
-  }
-
-  generateCard() {
+  generate() {
     const card = this._getTemplate();
 
     //assign cardfields
@@ -53,8 +43,7 @@ export class Card {
       } else if (evtTargetClassList.contains('element__delete')) {
         this._deleteElement(evtTarget)
       } else if (evtTargetClassList.contains('element__image')) {
-        this._openPopup(popupImage);
-        this._setupImagePopup(this._title, this._image);
+        this._openPopup(this._title, this._image);
       };
     });
 
