@@ -2,7 +2,6 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <link rel="stylesheet" href="./pages/index.css">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mesto</title>
@@ -11,12 +10,12 @@
 <body class="page">
 
   <header class="header">
-    <img class="header__logo" src="./images/logo.svg" alt="логотип Место">
+    <img class="header__logo" src="<%=require('./images/logo.svg')%>" alt="логотип Место">
   </header>
 
   <main class="content">
     <section class="profile">
-      <img class="profile__avatar" src="./images/avatar.png" alt="аватар">
+      <img class="profile__avatar" src="<%=require('./images/avatar.png')%>" alt="аватар">
       <div class="profile-info">
         <h1 class="profile-info__name">Жак-Ив Кусто</h1>
         <p class="profile-info__occupation">Исследователь океана</p>
@@ -64,7 +63,7 @@
 
   <div class="popup popup_image">
     <div class="popup__container popup__container_image">
-      <img class="popup__image" src="./images/logo.svg" alt="">
+      <img class="popup__image" src="<%=require('./images/logo.svg')%>" alt="место">
       <h2 class="popup__title">Место</h2>
       <button class="popup__close" type="button" aria-label="закрыть"></button>
     </div>
@@ -78,14 +77,5 @@
       <button type="button" class="element__delete" aria-label="удалить"></button>
     </li>
   </template>
-  
-  <script type="module" src="./scripts/components/Card.js"></script>
-  <script type="module" src="./scripts/components/FormValidator.js"></script>
-  <script type="module" src="./scripts/components/Popup.js"></script>
-  <script type="module" src="./scripts/components/PopupWithForm.js"></script>
-  <script type="module" src="./scripts/components/PopupWithImage.js"></script>
-  <script type="module" src="./scripts/components/Section.js"></script>
-  <script type="module" src="./scripts/pages/index.js"></script>
-  <script type="module" src="./scripts/utils/constants.js"></script>
 </body>
 </html>
