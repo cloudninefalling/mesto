@@ -2,11 +2,8 @@ export class FormValidator {
   constructor(config, formElement) {
     this._formElement = formElement;
 
-    this._formSelector = config.formSelector;
-    this._inputSelector = config.inputSelector;
-    this._inputList = Array.from(this._formElement.querySelectorAll(this._inputSelector));
-    this._submitButtonSelector = config.submitButtonSelector;
-    this._submitButtonElement = this._formElement.querySelector(this._submitButtonSelector);
+    this._inputList = Array.from(this._formElement.querySelectorAll(config.inputSelector));
+    this._submitButtonElement = this._formElement.querySelector(config.submitButtonSelector);
     this._inactiveSubmitButtonClass = config.inactiveSubmitButtonClass;
     this._errorMessageSelector = config.errorMessageSelector;
     this._errorStyleClass = config.errorStyleClass;
@@ -66,7 +63,7 @@ export class FormValidator {
     });
   }
 
-  resetErrors() {
+  resetValidationState() {
     this._inputList.forEach(inputElement => {
       this._hideInputError(inputElement);
     });

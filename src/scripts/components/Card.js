@@ -14,37 +14,33 @@ export class Card {
       .cloneNode(true);
   }
 
-  _likeElement(evtTarget) {
-    evtTarget.classList.toggle('element__like_active');
+  _likeElement(evt) {
+    console.log(evt)
+    evt.target.classList.toggle('element__like_active');
   }
 
-  _deleteElement(evtTarget) {
-    evtTarget.closest('.element').remove();
+  _deleteElement(evt) {
+    evt.target.closest('.element').remove();
   }
 
   generate() {
     const card = this._getTemplate();
 
     //assign cardfields
-    const cardTitleElement = card.querySelector('.element__title');
-    const cardImageElement = card.querySelector('.element__image');
+    this._titleElement = card.querySelector('.element__title');
+    this._imageElement = card.querySelector('.element__image');
+    this._likeButton = card.querySelector('.element__like');
+    this._deleteButton = card.querySelector('.element__delete');
 
     //set card field values
-    cardTitleElement.textContent = this._title;
-    cardImageElement.src = this._image;
-    cardImageElement.alt = this._title;
+    this._titleElement.textContent = this._title;
+    this._imageElement.src = this._image;
+    this._imageElement.alt = this._title;
 
-    card.addEventListener('click', evt => {
-      const evtTarget = evt.target;
-      const evtTargetClassList = evtTarget.classList;
-
-      if (evtTargetClassList.contains('element__like')) {
-        this._likeElement(evtTarget);
-      } else if (evtTargetClassList.contains('element__delete')) {
-        this._deleteElement(evtTarget)
-      } else if (evtTargetClassList.contains('element__image')) {
-        this._openPopup(this._title, this._image);
-      };
+    this._likeButton.addEventListener('click', this._likeElement);
+    this._deleteButton.addEventListener('click', this._deleteElement);
+    this._imageElement.addEventListener('click', evt => {
+      this._openPopup(this._title, this._image);
     });
 
     return card;
